@@ -4,6 +4,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinSerializtion)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -13,7 +15,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -24,13 +26,24 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
+        androidMain.dependencies {
+            implementation(libs.ktor.client.android)
+            implementation(libs.sqldelight.android.driver)
+        }
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.bundles.ktor)
+            implementation(libs.sqldelight.runtime)
+            implementation(libs.sqldelight.coroutines.extensions)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+            implementation(libs.sqldelight.native.driver)
         }
     }
 }
@@ -44,5 +57,13 @@ android {
     }
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+}
+
+sqldelight {
+    databases {
+        create("TranslateDatabase") {
+            packageName.set("io.github.josebatista.translator.database")
+        }
     }
 }
