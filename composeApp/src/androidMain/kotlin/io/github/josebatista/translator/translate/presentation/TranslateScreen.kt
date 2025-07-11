@@ -1,6 +1,7 @@
 package io.github.josebatista.translator.translate.presentation
 
 import android.content.ClipData
+import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -23,7 +24,9 @@ import io.github.josebatista.translator.R
 import io.github.josebatista.translator.translate.presentation.components.LanguageDropDown
 import io.github.josebatista.translator.translate.presentation.components.SwapLanguagesButton
 import io.github.josebatista.translator.translate.presentation.components.TranslateTextField
+import io.github.josebatista.translator.translate.presentation.components.rememberTextToSpeech
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @Composable
 fun TranslateScreen(
@@ -85,6 +88,7 @@ fun TranslateScreen(
                 val clipboardManager = LocalClipboard.current
                 val keyboardController = LocalSoftwareKeyboardController.current
                 val scope = rememberCoroutineScope()
+                val tts = rememberTextToSpeech()
                 TranslateTextField(
                     fromText = state.fromText,
                     toText = state.toText,
@@ -108,7 +112,15 @@ fun TranslateScreen(
                         ).show()
                     },
                     onCloseClick = { onEvent(TranslateEvent.CloseTranslation) },
-                    onSpeakerClick = { },
+                    onSpeakerClick = {
+                        tts.language = state.toLanguage.toLocale() ?: Locale.ENGLISH
+                        tts.speak(
+                            state.toText,
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            null
+                        )
+                    },
                     onTextFieldClick = { onEvent(TranslateEvent.EditTranslation) },
                     modifier = Modifier.fillMaxWidth()
                 )
