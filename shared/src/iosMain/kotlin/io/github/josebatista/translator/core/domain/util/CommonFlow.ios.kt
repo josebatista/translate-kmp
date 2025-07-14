@@ -2,6 +2,9 @@ package io.github.josebatista.translator.core.domain.util
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -16,5 +19,16 @@ actual open class CommonFlow<T> actual constructor(private val flow: Flow<T>) : 
             flow.collect(onCollect)
         }
         return DisposableHandle { job.cancel() }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun subscribe(
+        onCollect: (T) -> Unit
+    ): DisposableHandle {
+        return subscribe(
+            coroutineScope = GlobalScope,
+            dispatcher = Dispatchers.Main,
+            onCollect = onCollect
+        )
     }
 }
