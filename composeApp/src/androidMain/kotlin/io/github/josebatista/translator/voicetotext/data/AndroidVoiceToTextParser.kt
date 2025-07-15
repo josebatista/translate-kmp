@@ -67,6 +67,7 @@ class AndroidVoiceToTextParser(
     }
 
     override fun onError(code: Int) {
+        if (code == SpeechRecognizer.ERROR_CLIENT) return
         _state.update { it.copy(error = "Error: $code") }
     }
 
