@@ -42,7 +42,7 @@ struct TranslateScreen: View {
                 }
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.background)
-
+                
                 TranslateTextField(
                     fromText: Binding(
                         get: {
@@ -60,9 +60,41 @@ struct TranslateScreen: View {
                 )
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.background)
+                
+                if !viewModel.state.history.isEmpty {
+                    Text("History")
+                        .font(.title)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.background)
+                }
+                
+                ForEach(viewModel.state.history, id: \.self.id) { item in
+                    TranslateHistoryItem(
+                        item: item,
+                        onClick: { viewModel.onEvent(event: .SelectHistoryItem(item: item)) }
+                    )
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.background)
+                }
             }
             .listStyle(.plain)
             .buttonStyle(.plain)
+            
+            VStack {
+                Spacer()
+                NavigationLink(destination: Text("voice-to-text screen")) {
+                    ZStack {
+                        Circle()
+                            .foregroundColor(.primary)
+                            .padding()
+                        Image(uiImage: UIImage(named: "mic")!)
+                            .foregroundColor(.onPrimary)
+                    }
+                    .frame(maxWidth: 100, maxHeight: 100)
+                }
+            }
         }
         .onAppear {
             viewModel.startObserving()
