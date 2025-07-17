@@ -33,6 +33,7 @@ import Shared
     }
     
     func startObserving() {
+        self.viewModel.onEvent(event: .PermissionResult(isGranted: true, isPermanentlyDeclined: false))
         self.handle = viewModel.state.subscribe { [weak self] state in
             if let state {
                 self?.state = state

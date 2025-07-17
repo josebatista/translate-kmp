@@ -73,16 +73,16 @@ class IOSVoiceToTextParser: VoiceToTextParser, ObservableObject {
                     self?.updateState(result: result.bestTranscription.formattedString)
                 }
             }
-            self?.audioEngine = AVAudioEngine()
-            self?.inputNode = self?.audioEngine?.inputNode
-            let recordingFormat = self?.inputNode?.outputFormat(forBus: 0)
-            self?.inputNode?.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
-                self?.audioBufferRequest?.append(buffer)
-            }
-            self?.audioEngine?.prepare()
             do {
+                self?.audioEngine = AVAudioEngine()
                 try self?.audioSession?.setCategory(.playAndRecord, mode: .spokenAudio, options: .duckOthers)
                 try self?.audioSession?.setActive(true, options: .notifyOthersOnDeactivation)
+                self?.inputNode = self?.audioEngine?.inputNode
+                let recordingFormat = self?.inputNode?.outputFormat(forBus: 0)
+                self?.inputNode?.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
+                    self?.audioBufferRequest?.append(buffer)
+                }
+                self?.audioEngine?.prepare()
                 self?.micObserver.startObserving()
                 try self?.audioEngine?.start()
                 self?.updateState(isSpeaking: true)
@@ -102,7 +102,6 @@ class IOSVoiceToTextParser: VoiceToTextParser, ObservableObject {
         self.audioBufferRequest?.endAudio()
         self.audioBufferRequest = nil
         self.audioEngine?.stop()
-        self.audioEngine = nil
         self.inputNode?.removeTap(onBus: 0)
         try? self.audioSession?.setActive(false)
         self.audioSession = nil
