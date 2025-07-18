@@ -21,6 +21,8 @@ ktor = "3.2.1"
 sqlDelight = "2.1.0"
 daggerHilt = "2.56.2"
 hiltNavigationCompose = "1.2.0"
+assertK = "0.28.1"
+turbine = "1.2.1"
 
 [libraries]
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
@@ -57,6 +59,10 @@ sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", versi
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "daggerHilt" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "daggerHilt" }
 dagger-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+
+# TESTS
+assertK = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertK" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
