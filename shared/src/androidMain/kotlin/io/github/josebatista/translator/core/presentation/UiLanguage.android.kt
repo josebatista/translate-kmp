@@ -5,7 +5,7 @@ import io.github.josebatista.translator.core.domain.language.Language
 import io.github.josebatista.translator.shared.R
 import java.util.Locale
 
-actual class UiLanguage(
+actual data class UiLanguage(
     @DrawableRes val drawableRes: Int,
     actual val language: Language
 ) {

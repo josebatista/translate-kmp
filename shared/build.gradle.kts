@@ -40,6 +40,8 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.assertK)
+            implementation(libs.turbine)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

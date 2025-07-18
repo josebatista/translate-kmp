@@ -2,7 +2,7 @@ package io.github.josebatista.translator.core.presentation
 
 import io.github.josebatista.translator.core.domain.language.Language
 
-actual class UiLanguage(
+actual data class UiLanguage(
     actual val language: Language,
     val imageName: String
 ) {
