@@ -1,4 +1,4 @@
-package io.github.josebatista.translator.translate
+package io.github.josebatista.translator
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
