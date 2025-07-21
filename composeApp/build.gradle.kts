@@ -48,6 +48,8 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+
+        testInstrumentationRunner = "io.github.josebatista.translator.TestHiltRunner"
     }
     packaging {
         resources {
@@ -66,6 +68,8 @@ android {
 }
 
 dependencies {
+//    App Dependencies
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.navigation.compose)
     implementation(libs.coil.compose)
 
@@ -75,6 +79,16 @@ dependencies {
     ksp(libs.dagger.hilt.compiler)
     implementation(libs.dagger.hilt.navigation.compose)
 
+
+//    Android TEST Dependencies
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    kspAndroidTest(libs.dagger.hilt.compiler)
+    androidTestImplementation(libs.dagger.hilt.testing)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
+
+//    TEST Dependencies
     debugImplementation(compose.uiTooling)
 }
 

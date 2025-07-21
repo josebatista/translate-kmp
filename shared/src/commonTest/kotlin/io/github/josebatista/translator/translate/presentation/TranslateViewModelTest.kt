@@ -12,7 +12,7 @@ import io.github.josebatista.translator.translate.domain.history.HistoryItem
 import io.github.josebatista.translator.translate.domain.translate.TranslateUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
@@ -39,7 +39,7 @@ class TranslateViewModelTest {
     }
 
     @Test
-    fun `State and history items are properly combined`() = runTest {
+    fun `State and history items are properly combined`() = runBlocking {
         viewModel.state.test {
             val initialState = awaitItem()
             assertThat(initialState).isEqualTo(TranslateState())
@@ -64,7 +64,7 @@ class TranslateViewModelTest {
     }
 
     @Test
-    fun `Translate success - state properly updated`() = runTest {
+    fun `Translate success - state properly updated`() = runBlocking {
         viewModel.state.test {
             awaitItem()
             viewModel.onEvent(event = TranslateEvent.ChangeTranslationText("test"))
