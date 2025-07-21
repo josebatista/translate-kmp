@@ -9,9 +9,9 @@ androidx-constraintlayout = "2.2.1"
 androidx-core = "1.16.0"
 androidx-espresso = "3.6.1"
 androidx-lifecycle = "2.9.1"
-androidx-navigationCompose = "2.9.1"
 androidx-testExt = "1.2.1"
 coilCompose = "3.2.0"
+composeBom = "2025.07.00"
 composeMultiplatform = "1.8.2"
 junit = "4.13.2"
 kotlin = "2.2.0"
@@ -23,6 +23,8 @@ daggerHilt = "2.56.2"
 hiltNavigationCompose = "1.2.0"
 assertK = "0.28.1"
 turbine = "1.2.1"
+testRunner = "1.6.2"
+testRules = "1.6.1"
 
 [libraries]
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
@@ -37,7 +39,8 @@ androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayo
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigationCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose" }
 
 # COIL
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
@@ -63,6 +66,11 @@ dagger-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compo
 # TESTS
 assertK = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertK" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+dagger-hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "daggerHilt" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "testRunner" }
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "testRules" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
