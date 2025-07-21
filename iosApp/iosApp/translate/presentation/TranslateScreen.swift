@@ -11,12 +11,13 @@ import Shared
 struct TranslateScreen: View {
     private var historyDataSource: HistoryDataSource
     private var translateUseCase: TranslateUseCase
+    private let parser: VoiceToTextParser
     @ObservedObject var viewModel: iOSTranslateViewModel
-    private let parser = IOSVoiceToTextParser()
     
-    init(historyDataSource: HistoryDataSource, translateUseCase: TranslateUseCase) {
+    init(historyDataSource: HistoryDataSource, translateUseCase: TranslateUseCase, parser: VoiceToTextParser) {
         self.historyDataSource = historyDataSource
         self.translateUseCase = translateUseCase
+        self.parser = parser
         self.viewModel = iOSTranslateViewModel(
             historyDataSource: historyDataSource,
             translateUseCase: translateUseCase
@@ -100,6 +101,7 @@ struct TranslateScreen: View {
                             .padding()
                         Image(uiImage: UIImage(named: "mic")!)
                             .foregroundColor(.onPrimary)
+                            .accessibilityIdentifier("Record audio")
                     }
                     .frame(maxWidth: 100, maxHeight: 100)
                 }
